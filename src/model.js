@@ -42,7 +42,7 @@ function resetState() {
   return {
     playing: false,
     currentSlide: {},
-    currentSlideIndex: 0,
+    currentSlideIndex: -1,
     currentStep: steps.init,
     slides,
   }
@@ -66,7 +66,7 @@ export default {
   },
   effects: {
     nextSlide(state, actions) {
-      if (state.currentSlideIndex === 0) {
+      if (state.playing === false) {
         actions.setPlaying(true)
       }
       actions.setStep('init')

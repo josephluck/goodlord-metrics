@@ -5,7 +5,11 @@
   "dependencies": {
     "helix-react": "git://github.com/josephluck/helix-react",
     "react": "^15.6.1",
+    "react-collapse": "^4.0.3",
     "react-dom": "^15.6.1",
+    "react-motion": "^0.5.1",
+    "react-player": "^0.20.0",
+    "react-reveal-text": "^0.0.3",
     "react-scripts": "1.0.12"
   },
   "scripts": {
