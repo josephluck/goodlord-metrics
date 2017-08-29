@@ -1,6 +1,35 @@
 import React from 'react'
 import Player from 'react-player'
 
+function Slide({
+  metric,
+  video,
+  target,
+  actual,
+  step,
+  onVideoFinished,
+  shouldPlayVideo
+}) {
+  return (
+    <div>
+      <p>Metric: {metric}</p>
+      <p>Target: {target}</p>
+      <p>Actual: {actual}</p>
+      {step === 'video' && shouldPlayVideo
+        ? (
+          <div>
+            <Player
+              onEnded={onVideoFinished}
+              url={video}
+              playing={true}
+            />
+          </div>
+        ) : null
+      }
+    </div>
+  )
+}
+
 export default {
   view(state, prev, actions) {
     return (
@@ -10,20 +39,19 @@ export default {
             <div>
               <p>Slide: {state.currentSlideIndex}</p>
               <p>Step: {state.currentStep}</p>
-              <p>Metric: {state.currentSlide.metric}</p>
-              <p>Target: {state.currentSlide.target}</p>
-              <p>Actual: {state.currentSlide.actual}</p>
-              {state.currentStep === 'video'
-                ? (
-                  <div>
-                    <Player
-                      onEnded={actions.onVideoFinished}
-                      url={state.currentSlide.video}
-                      playing={true}
+              <div>
+                {state.slides.map((slide, index) => {
+                  return (
+                    <Slide
+                      key={index}
+                      {...slide}
+                      step={state.currentStep}
+                      shouldPlayVideo={index === state.currentSlideIndex}
+                      onVideoFinished={actions.onVideoFinished}
                     />
-                  </div>
-                ) : null
-              }
+                  )
+                })}
+              </div>
             </div>
           ) : null
         }
