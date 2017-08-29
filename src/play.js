@@ -39,18 +39,27 @@ export default {
             <div>
               <p>Slide: {state.currentSlideIndex}</p>
               <p>Step: {state.currentStep}</p>
-              <div>
-                {state.slides.map((slide, index) => {
-                  return (
-                    <Slide
-                      key={index}
-                      {...slide}
-                      step={state.currentStep}
-                      shouldPlayVideo={index === state.currentSlideIndex}
-                      onVideoFinished={actions.onVideoFinished}
-                    />
-                  )
-                })}
+              <div className='slides-wrapper'>
+                <div
+                  className='slide-scroller'
+                  style={{
+                    transform: `translateX(-${state.currentSlideIndex * 100}%)`
+                  }}
+                >
+                  {state.slides.map((slide, index) => {
+                    return (
+                      <div className='slide'>
+                        <Slide
+                          key={index}
+                          {...slide}
+                          step={state.currentStep}
+                          shouldPlayVideo={index === state.currentSlideIndex}
+                          onVideoFinished={actions.onVideoFinished}
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           ) : null

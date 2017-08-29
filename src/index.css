@@ -3,3 +3,19 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.slides-wrapper {
+  width: 400px;
+  margin: 50px;
+  border: solid 10px teal;
+  white-space: nowrap;
+}
+
+.slide-scroller {
+  transition: all 0.3s;
+}
+
+.slide {
+  display: inline-block;
+  width: 100%;
+}
