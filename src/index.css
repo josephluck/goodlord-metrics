@@ -10,46 +10,45 @@ body, html {
   box-sizing: border-box;
 }
 
-.slides-wrapper {
-  margin: 0 auto;
-  width: 900px;
-  height: 600px;
-  white-space: nowrap;
-  font-size: 4em;
-}
+.transition-quick { transition: all 0.2s }
+.transition { transition: all 0.3s }
+.transition-graph { transition: all 3s }
 
-.slide-scroller {
-  transition: all 1s;
-}
-
-.slide {
-  display: inline-block;
-  width: 900px;
-  height: 600px;
-}
-
-.slide-inner {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  background: white;
-  text-align: center;
-  justify-content: center;
-}
-
-
-.animate-opacity {
-  opacity: 0;
-  transition: all 1s;
-}
-.animate-opacity.in {
-  opacity: 1;
-}
 .overflow-visible { overflow: visible }
+
 .d-flex { display: flex }
 .items-center { align-items: center }
+
 .center { margin: 0 auto }
+
+.pos-fixed { position: fixed }
+.pos-absolute { position: absolute }
+
+.top0 { top: 0 }
+.left0 { left: 0 }
+.bottom0 { left: 0 }
+
+.w50 { width: 50% }
+.w100 { width: 100% }
+.h100 { height: 100% }
+
+.transX0 { transform: translateX(0%) }
+.transX25 { transform: translateX(25%) }
+.transX50 { transform: translateX(50%) }
+.transX75 { transform: translateX(75%) }
+.transX100 { transform: translateX(100%) }
+.transX200 { transform: translateX(200%) }
+.transY0 { transform: translateY(0%) }
+.transY25 { transform: translateY(25%) }
+.transY50 { transform: translateY(50%) }
+.transY75 { transform: translateY(75%) }
+.transY100 { transform: translateY(100%) }
+.transY200 { transform: translateY(200%) }
+
+.bgBlue { background: blue }
+.bgRed { background: red }
+.bgYellow { background: yellow }
+
 .pt3 { padding-top: 1rem }
 .pb3 { padding-bottom: 1rem }
 .pv3 { padding-top: 1rem; padding-bottom: 1rem }

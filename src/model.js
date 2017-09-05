@@ -1,49 +1,34 @@
+import * as listForm from './list-form'
+
 const slides = [
   {
     metric: 'Number of tenancies created',
-    video: 'https://www.youtube.com/watch?v=hP9pEpCwggE',
-    target: 30000,
-    actual: 32547
+    target: 3,
+    actual: 2
   },
   {
     metric: 'Number of tenants processed',
-    video: 'https://www.youtube.com/watch?v=S31284EkxOc',
-    target: 140000,
-    actual: 124397,
+    target: 2,
+    actual: 1,
   },
   {
     metric: 'Number of agencies onboarded',
-    video: 'https://www.youtube.com/watch?v=B2F5IYIjrD8',
-    target: 10,
-    actual: 14,
+    target: 6,
+    actual: 5,
   },
   {
     metric: 'Number of sales',
-    video: 'https://www.youtube.com/watch?v=hP9pEpCwggE',
-    target: 16,
-    actual: 19,
+    target: 100,
+    actual: 90,
   }
 ]
-
-export const steps = {
-  init: 'init',
-  metric: 'metric',
-  target: 'target',
-  video: 'video'
-}
-
-export function pause(seconds) {
-  return new Promise(resolve => {
-    setTimeout(resolve, seconds * 1000)
-  })
-}
 
 function resetState() {
   return {
     playing: false,
     currentSlide: {},
     currentSlideIndex: -1,
-    currentStep: steps.init,
+    currentStep: 0,
     slides,
   }
 }
@@ -60,7 +45,6 @@ export default {
       return { currentSlideIndex: newSlideIndex, currentSlide }
     },
     setStep(state, newStep) {
-      console.log(newStep)
       return { currentStep: newStep }
     }
   },
@@ -69,21 +53,46 @@ export default {
       if (state.playing === false) {
         actions.setPlaying(true)
       }
-      actions.setStep('init')
+      actions.setStep(0) // Metric
       actions.setSlide(state.currentSlideIndex + 1)
       pause(3)
-        .then(() => actions.setStep('metric'))
+        .then(() => actions.setStep(1)) // Metric to left
         .then(() => pause(3))
-        .then(() => actions.setStep('target'))
+        .then(() => actions.setStep(2)) // Animate bar to percentage
+        .then(() => pause(4))
+        .then(() => actions.setStep(3)) // Animate bar full
         .then(() => pause(3))
-        .then(() => actions.setStep('video'))
+        .then(() => {
+          if (state.currentSlideIndex === state.slides.length) {
+            actions.resetState()
+          } else {
+            actions.nextSlide()
+          }
+        })
     },
-    onVideoFinished(state, actions) {
-      if (state.currentSlideIndex + 1 === state.slides.length) {
-        actions.resetState()
-      } else {
-        actions.nextSlide()
-      }
-    }
+  },
+  models: {
+    form: listForm.model({
+      constraints: () => {
+        return {
+          metric: { presence: true },
+          target: { presence: true },
+          actual: { presence: true },
+        }
+      },
+      defaultForm: () => {
+        return {
+          metric: '',
+          target: 0,
+          actual: 0,
+        }
+      },
+    }),
   }
+}
+
+export function pause(seconds) {
+  return new Promise(resolve => {
+    setTimeout(resolve, seconds * 1000)
+  })
 }

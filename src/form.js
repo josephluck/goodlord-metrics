@@ -1,6 +1,5 @@
-import Core from 'core'
-import validate from 'validation/validator'
-import { Err, Ok, Result } from 'space-lift'
+import validate from './validator'
+import { Err, Ok } from 'space-lift'
 
 export function model({
   constraints,

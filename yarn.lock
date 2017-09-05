@@ -2474,10 +2474,6 @@ fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-fetch-jsonp@^1.0.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/fetch-jsonp/-/fetch-jsonp-1.1.2.tgz#2cf33704a5081c563e02d26ab8650c3e065fa3f8"
-
 figures@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/figures/-/figures-2.0.0.tgz#3ab1a2d2a62c8bfb431a0c94cb797a2fce27c962"
@@ -3058,6 +3054,10 @@ ieee754@^1.1.4:
 ignore@^3.3.3:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.5.tgz#c4e715455f6073a8d7e5dae72d2fc9d71663dba6"
+
+immupdate@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/immupdate/-/immupdate-1.1.4.tgz#c6a1894101b2df67d052fae2083fc50193a52c09"
 
 imurmurhash@^0.1.4:
   version "0.1.4"
@@ -3852,10 +3852,6 @@ load-json-file@^2.0.0:
     pify "^2.0.0"
     strip-bom "^3.0.0"
 
-load-script@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
-
 loader-fs-cache@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/loader-fs-cache/-/loader-fs-cache-1.0.1.tgz#56e0bf08bd9708b26a765b68509840c8dec9fdbc"
@@ -3891,6 +3887,16 @@ locate-path@^2.0.0:
     p-locate "^2.0.0"
     path-exists "^3.0.0"
 
+lodash-compat@^3.10.2:
+  version "3.10.2"
+  resolved "https://registry.yarnpkg.com/lodash-compat/-/lodash-compat-3.10.2.tgz#c6940128a9d30f8e902cd2cf99fd0cba4ecfc183"
+
+lodash-fp@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/lodash-fp/-/lodash-fp-0.10.4.tgz#2a78c654b25a0c46753a20aa786df641c7f82e67"
+  dependencies:
+    lodash-compat "^3.10.2"
+
 lodash._reinterpolate@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
@@ -3910,10 +3916,6 @@ lodash.defaults@^4.2.0:
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
-
-lodash.omit@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/lodash.omit/-/lodash.omit-4.5.0.tgz#6eb19ae5a1ee1dd9df0b969e66ce0b7fa30b5e60"
 
 lodash.template@^4.4.0:
   version "4.4.0"
@@ -4972,7 +4974,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.8:
+prop-types@^15.5.10, prop-types@^15.5.8:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -5137,19 +5139,6 @@ react-motion@^0.5.1:
     performance-now "^0.2.0"
     prop-types "^15.5.8"
     raf "^3.1.0"
-
-react-player@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.yarnpkg.com/react-player/-/react-player-0.20.0.tgz#61ba61b0a0c03a9a0e5e45ee70b40fb82eab56bd"
-  dependencies:
-    fetch-jsonp "^1.0.2"
-    load-script "^1.0.0"
-    lodash.omit "^4.5.0"
-    prop-types "^15.5.6"
-
-react-reveal-text@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/react-reveal-text/-/react-reveal-text-0.0.3.tgz#fc24b550d8b210b6d4323ce0078f7d0d3a54768e"
 
 react-scripts@1.0.12:
   version "1.0.12"
@@ -5734,6 +5723,12 @@ source-map@~0.2.0:
   dependencies:
     amdefine ">=0.0.4"
 
+space-lift@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/space-lift/-/space-lift-0.5.0.tgz#fe293b9644440778e14e1ba2ac0880a3046ac2f7"
+  dependencies:
+    immupdate "1.1.4"
+
 spdx-correct@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/spdx-correct/-/spdx-correct-1.0.2.tgz#4b3073d933ff51f3912f03ac5519498a4150db40"
@@ -6262,6 +6257,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
+
+validate.js@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/validate.js/-/validate.js-0.11.1.tgz#f51c3c6c4a56e6380a20a7eb104245037f2a540d"
 
 vary@~1.1.1:
   version "1.1.1"

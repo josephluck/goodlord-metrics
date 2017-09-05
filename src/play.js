@@ -1,46 +1,57 @@
 import React from 'react'
-import Player from 'react-player'
-import Collapse from 'react-collapse'
+// import Collapse from 'react-collapse'
 
 function Slide({
   metric,
-  video,
   target,
   actual,
   step,
-  onVideoFinished,
-  isCurrentSlide
+  index,
+  currentSlideIndex,
 }) {
-  const targetText = `Target... ${target}...`
+  const isCurrentSlide = index === currentSlideIndex
+  const getGraphBottomOffset = () => {
+    const percentage = (actual / target) * 100
+    if (step === 2) {
+      return 100 - percentage
+    } else if (step > 2) {
+      return 0
+    } {
+      return 100
+    }
+  }
   return (
     <div
-      className={`slide animate-opacity ${isCurrentSlide ? 'in' : ''}`}
+      className={`
+        pos-fixed top0 left0 w100 h100
+      `}
     >
-      <div className='slide-inner'>
-        <div>
-          <Collapse isOpened={step === 'init'}>
-            <div>Drum roll please...</div>
-          </Collapse>
-          <Collapse isOpened={step !== 'init'}>
-            <div>{metric}</div>
-          </Collapse>
-          <Collapse
-            isOpened={step === 'video'}
-          >
-            <div className='d-flex items-center pt3'>
-              <Player
-                onEnded={onVideoFinished}
-                url={video}
-                playing={isCurrentSlide && step === 'video'}
-                width='711'
-                height='400'
-                className={`center animate-opacity ${isCurrentSlide && step === 'video' ? 'in' : ''}`}
-              />
-            </div>
-          </Collapse>
-          <Collapse isOpened={step === 'video' || step === 'target'}>
-            <div className='pt3'>{targetText}</div>
-          </Collapse>
+      <div
+        className={`
+          pos-fixed top0 left0 w50 h100 bgBlue d-flex items-center transition
+          ${step === 0 ? 'transX50' : 'transX0'}
+        `}
+      >
+        <div className='center'>
+          {metric}
+        </div>
+      </div>
+      <div
+        className={`
+          pos-fixed top0 left0 h100 bgRed transition
+          ${step === 3 ? 'transX0' : step !== 0 ? 'transX100' : 'transX200'}
+          ${step === 3 ? 'w100' : 'w50'}
+        `}
+      >
+        <div
+          className={`
+            pos-absolute bottom0 left0 w100 h100 bgYellow
+            ${step === 3 ? 'transition' : 'transition-graph'}
+          `}
+          style={{
+            transform: `translateY(${getGraphBottomOffset()}%)`
+          }}
+        >
         </div>
       </div>
     </div>
@@ -54,26 +65,17 @@ export default {
         {state.playing === true
           ? (
             <div>
-              <div className='slides-wrapper'>
-                <div
-                  className='slide-scroller'
-                  style={{
-                    transform: `translateX(-${state.currentSlideIndex * 100}%)`
-                  }}
-                >
-                  {state.slides.map((slide, index) => {
-                    return (
-                      <Slide
-                        key={index}
-                        {...slide}
-                        step={state.currentStep}
-                        isCurrentSlide={index === state.currentSlideIndex}
-                        onVideoFinished={actions.onVideoFinished}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
+              {state.slides.map((slide, index) => {
+                return (
+                  <Slide
+                    key={index}
+                    {...slide}
+                    step={state.currentStep}
+                    index={index}
+                    currentSlideIndex={state.currentSlideIndex}
+                  />
+                )
+              })}
             </div>
           ) : null
         }
@@ -83,7 +85,7 @@ export default {
               type='button'
               onClick={actions.nextSlide}
             >
-              Start Show!
+              Start
             </button>
           ) : null
         }
@@ -91,7 +93,7 @@ export default {
         <br />
         <br />
         <br />
-        <a href='/'>Make slides</a>
+        <a href='/'>Make</a>
         <p>Slide: {state.currentSlideIndex}</p>
         <p>Step: {state.currentStep}</p>
       </div>
