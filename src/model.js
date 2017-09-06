@@ -28,7 +28,7 @@ function resetState() {
     playing: false,
     currentSlide: {},
     currentSlideIndex: -1,
-    currentStep: 'SHOW_METRIC',
+    currentStep: 'START',
     slides,
   }
 }
@@ -53,16 +53,18 @@ export default {
       if (state.playing === false) {
         actions.setPlaying(true)
       }
-      actions.setStep('SHOW_METRIC') // Metric
+      actions.setStep('START')
       actions.setSlide(state.currentSlideIndex + 1)
       pause(3)
-        .then(() => actions.setStep('METRIC_TO_LEFT')) // Metric to left
+        .then(() => actions.setStep('SHOW_TARGET_ACTUAL_TEXT'))
         .then(() => pause(3))
-        .then(() => actions.setStep('BAR_TO_PERCENTAGE')) // Animate bar to percentage
+        .then(() => actions.setStep('SHOW_TARGET_PERCENTAGE'))
+        .then(() => pause(3))
+        .then(() => actions.setStep('SHOW_ACTUAL_PERCENTAGE'))
     },
     playNext(state, actions) {
-      actions.setStep('BAR_FULL_SCREEN') // Animate bar full-screen
-      pause(1)
+      actions.setStep('RESET') // Animate bar full-screen
+      pause(0.3)
         .then(() => {
           if (state.currentSlideIndex === state.slides.length) {
             actions.resetState()

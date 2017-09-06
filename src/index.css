@@ -25,13 +25,17 @@ body, html, #root {
 
 .top0 { top: 0 }
 .left0 { left: 0 }
+.left50 { left: 50% }
 .bottom0 { bottom: 0 }
 .right0 { right: 0 }
 
+.w0 { width: 0% }
 .w50 { width: 50% }
 .w100 { width: 100% }
 .h100 { height: 100% }
 
+.transX-100 { transform: translateX(-100%) }
+.transX-50 { transform: translateX(-50%) }
 .transX0 { transform: translateX(0%) }
 .transX25 { transform: translateX(25%) }
 .transX50 { transform: translateX(50%) }
@@ -57,3 +61,7 @@ body, html, #root {
 .pv3 { padding-top: 1rem; padding-bottom: 1rem }
 
 .z1 { z-index: 1 }
+.z2 { z-index: 2 }
+
+.o0 { opacity: 0 }
+.o100 { opacity: 1 }
