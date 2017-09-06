@@ -28,7 +28,7 @@ function resetState() {
     playing: false,
     currentSlide: {},
     currentSlideIndex: -1,
-    currentStep: 0,
+    currentStep: 'SHOW_METRIC',
     slides,
   }
 }
@@ -53,15 +53,16 @@ export default {
       if (state.playing === false) {
         actions.setPlaying(true)
       }
-      actions.setStep(0) // Metric
+      actions.setStep('SHOW_METRIC') // Metric
       actions.setSlide(state.currentSlideIndex + 1)
       pause(3)
-        .then(() => actions.setStep(1)) // Metric to left
+        .then(() => actions.setStep('METRIC_TO_LEFT')) // Metric to left
         .then(() => pause(3))
-        .then(() => actions.setStep(2)) // Animate bar to percentage
-        .then(() => pause(4))
-        .then(() => actions.setStep(3)) // Animate bar full
-        .then(() => pause(3))
+        .then(() => actions.setStep('BAR_TO_PERCENTAGE')) // Animate bar to percentage
+    },
+    playNext(state, actions) {
+      actions.setStep('BAR_FULL_SCREEN') // Animate bar full-screen
+      pause(1)
         .then(() => {
           if (state.currentSlideIndex === state.slides.length) {
             actions.resetState()
@@ -69,7 +70,7 @@ export default {
             actions.nextSlide()
           }
         })
-    },
+    }
   },
   models: {
     form: listForm.model({

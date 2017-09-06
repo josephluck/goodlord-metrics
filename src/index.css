@@ -26,7 +26,8 @@ body, html, #root {
 
 .top0 { top: 0 }
 .left0 { left: 0 }
-.bottom0 { left: 0 }
+.bottom0 { bottom: 0 }
+.right0 { right: 0 }
 
 .w50 { width: 50% }
 .w100 { width: 100% }

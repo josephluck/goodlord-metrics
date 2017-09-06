@@ -9,15 +9,15 @@ function Slide({
   index,
   currentSlideIndex,
   style = {},
+  onPlayNextSlideClick,
 }) {
-  const isCurrentSlide = index === currentSlideIndex
   const getGraphBottomOffset = () => {
     const percentage = (actual / target) * 100
-    if (step === 2) {
+    if (step === 'BAR_TO_PERCENTAGE') {
       return 100 - percentage // Animate to actual
-    } else if (step > 2) {
+    } else if (step === 'BAR_FULL_SCREEN') {
       return 0 // Animate to top
-    } {
+    } else {
       return 100 // Initially off screen
     }
   }
@@ -31,7 +31,7 @@ function Slide({
       <div
         className={`
           pos-fixed top0 left0 w50 h100 d-flex items-center
-          ${step === 0 ? 'transX50' : 'transition transX0'}
+          ${step === 'SHOW_METRIC' ? 'transX50' : 'transition transX0'}
           ${currentSlideIndex % 2 === 0 ? 'bgRed' : 'bgYellow'}
         `}
       >
@@ -42,14 +42,14 @@ function Slide({
       <div
         className={`
           pos-fixed top0 left0 h100 bgWhite
-          ${step === 3 ? 'transX0 transition' : step !== 0 ? 'transX100 transition' : 'transX200'}
-          ${step === 3 ? 'w100' : 'w50'}
+          ${step === 'BAR_FULL_SCREEN' ? 'transX0 transition' : step !== 'SHOW_METRIC' ? 'transX100 transition' : 'transX200'}
+          ${step === 'BAR_FULL_SCREEN' ? 'w100' : 'w50'}
         `}
       >
         <div
           className={`
             pos-absolute bottom0 left0 w100 h100
-            ${step === 3 ? 'transition' : 'transition-graph'}
+            ${step === 'BAR_FULL_SCREEN' ? 'transition' : 'transition-graph'}
             ${index % 2 === 0 ? 'bgYellow' : 'bgRed'}
           `}
           style={{
@@ -58,6 +58,17 @@ function Slide({
         >
         </div>
       </div>
+      {step === 'BAR_TO_PERCENTAGE'
+        ? (
+          <button
+            onClick={onPlayNextSlideClick}
+            className='pos-fixed bottom0 right0'
+          >
+            Next
+          </button>
+        )
+        : null
+      }
     </div>
   )
 }
@@ -85,6 +96,7 @@ export default {
                     style={{
                       zIndex: index === state.currentSlideIndex ? '100' : state.slides.length - index,
                     }}
+                    onPlayNextSlideClick={actions.playNext}
                   />
                 )
               })}
