@@ -46,10 +46,10 @@ body, html, #root {
 .transY100 { transform: translateY(100%) }
 .transY200 { transform: translateY(200%) }
 
+.fWhite { color: white }
 .bgWhite { background: white }
-.bgBlue { background: blue }
-.bgRed { background: red }
-.bgYellow { background: yellow }
+.bgOne { background: #4fcead }
+.bgTwo { background: #656d78 }
 
 .pt3 { padding-top: 1rem }
 .pb3 { padding-bottom: 1rem }

@@ -32,7 +32,7 @@ function Slide({
         className={`
           pos-fixed top0 left0 w50 h100 d-flex items-center
           ${step === 'SHOW_METRIC' ? 'transX50' : 'transition transX0'}
-          ${currentSlideIndex % 2 === 0 ? 'bgRed' : 'bgYellow'}
+          ${currentSlideIndex % 2 === 0 ? 'bgOne' : 'bgTwo'}
         `}
       >
         <div className='center'>
@@ -50,7 +50,7 @@ function Slide({
           className={`
             pos-absolute bottom0 left0 w100 h100
             ${step === 'BAR_FULL_SCREEN' ? 'transition' : 'transition-graph'}
-            ${index % 2 === 0 ? 'bgYellow' : 'bgRed'}
+            ${index % 2 === 0 ? 'bgTwo' : 'bgOne'}
           `}
           style={{
             transform: `translateY(${getGraphBottomOffset()}%)`
@@ -78,8 +78,8 @@ export default {
     return (
       <div
         className={`
-          w100 h100
-          ${state.currentSlideIndex === -1 ? '' : state.currentSlideIndex % 2 === 0 ? 'bgRed' : 'bgYellow'}`
+          w100 h100 fWhite
+          ${state.currentSlideIndex === -1 ? '' : state.currentSlideIndex % 2 === 0 ? 'bgOne' : 'bgTwo'}`
         }
       >
         {state.playing === true
