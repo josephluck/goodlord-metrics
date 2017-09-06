@@ -1,4 +1,4 @@
-import validate from './validator'
+import validate from '../utils/validator'
 import { Err, Ok } from 'space-lift'
 
 export function model({

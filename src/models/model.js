@@ -63,7 +63,7 @@ export default {
         .then(() => actions.setStep('SHOW_ACTUAL_PERCENTAGE'))
     },
     playNext(state, actions) {
-      actions.setStep('RESET') // Animate bar full-screen
+      actions.setStep('RESET')
       pause(0.3)
         .then(() => {
           if (state.currentSlideIndex === state.slides.length) {

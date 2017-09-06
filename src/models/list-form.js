@@ -1,6 +1,6 @@
 import * as identity from 'lodash/fp/identity'
 import * as Form from './form'
-import replace from './replace-array-element'
+import replace from '../utils/replace-array-element'
 
 export function model({
   constraints,
