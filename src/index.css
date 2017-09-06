@@ -6,9 +6,7 @@ body, html, #root {
   font-family: sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box }
 
 .transition-quick { transition: all 0.2s }
 .transition { transition: all 0.3s }
@@ -47,11 +45,15 @@ body, html, #root {
 .transY100 { transform: translateY(100%) }
 .transY200 { transform: translateY(200%) }
 
-.fWhite { color: white }
-.bgWhite { background: white }
+.fLight { color: white }
+.fDark { color: black }
+
+.bgLight { background: white }
 .bgOne { background: #4fcead }
 .bgTwo { background: #656d78 }
 
 .pt3 { padding-top: 1rem }
 .pb3 { padding-bottom: 1rem }
 .pv3 { padding-top: 1rem; padding-bottom: 1rem }
+
+.z1 { z-index: 1 }

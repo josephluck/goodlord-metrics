@@ -1,5 +1,7 @@
 import React from 'react'
 // import Collapse from 'react-collapse'
+import Typist from 'react-typist'
+import Count from 'react-animated-number'
 
 function Slide({
   metric,
@@ -36,12 +38,25 @@ function Slide({
         `}
       >
         <div className='center'>
-          {metric}
+          {currentSlideIndex === index
+            ? (
+              <Typist cursor={{ show: false }}>
+                {metric}
+              </Typist>
+            ) : null
+          }
+          Target:
+          <Count
+            value={currentSlideIndex === index ? target : 0}
+            duration={1000}
+            cursor={{ show: false }}
+            stepPrecision={0}
+          />
         </div>
       </div>
       <div
         className={`
-          pos-fixed top0 left0 h100 bgWhite
+          pos-fixed top0 left0 h100 bgLight d-flex items-center
           ${step === 'BAR_FULL_SCREEN' ? 'transX0 transition' : step !== 'SHOW_METRIC' ? 'transX100 transition-bezier' : 'transX200'}
           ${step === 'BAR_FULL_SCREEN' ? 'w100' : 'w50'}
         `}
@@ -55,7 +70,14 @@ function Slide({
           style={{
             transform: `translateY(${getGraphBottomOffset()}%)`
           }}
-        >
+        />
+        <div className='center pos-relative fDark z1'>
+          Actual:
+          <Count
+            value={currentSlideIndex === index && step === 'BAR_TO_PERCENTAGE' ? actual : 0}
+            duration={3000}
+            stepPrecision={0}
+          />
         </div>
       </div>
       {step === 'BAR_TO_PERCENTAGE'
@@ -78,7 +100,7 @@ export default {
     return (
       <div
         className={`
-          w100 h100 fWhite
+          w100 h100 fLight
           ${state.currentSlideIndex === -1 ? '' : state.currentSlideIndex % 2 === 0 ? 'bgOne' : 'bgTwo'}`
         }
       >
