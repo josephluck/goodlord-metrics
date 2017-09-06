@@ -1,4 +1,4 @@
-body, html {
+body, html, #root {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -45,6 +45,7 @@ body, html {
 .transY100 { transform: translateY(100%) }
 .transY200 { transform: translateY(200%) }
 
+.bgWhite { background: white }
 .bgBlue { background: blue }
 .bgRed { background: red }
 .bgYellow { background: yellow }
