@@ -37,6 +37,9 @@ export default {
   state: resetState(),
   reducers: {
     resetState,
+    setSlides(state, slides) {
+      return { slides }
+    },
     setPlaying(state, playing) {
       return { playing }
     },
@@ -49,6 +52,11 @@ export default {
     }
   },
   effects: {
+    startShow(state, actions) {
+      actions.setSlides(state.form.items)
+      actions.location.set('/play')
+      actions.nextSlide()
+    },
     nextSlide(state, actions) {
       if (state.playing === false) {
         actions.setPlaying(true)
