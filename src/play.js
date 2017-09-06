@@ -31,7 +31,7 @@ function Slide({
       <div
         className={`
           pos-fixed top0 left0 w50 h100 d-flex items-center
-          ${step === 'SHOW_METRIC' ? 'transX50' : 'transition transX0'}
+          ${step === 'SHOW_METRIC' ? 'transX50' : 'transition-bezier transX0'}
           ${currentSlideIndex % 2 === 0 ? 'bgOne' : 'bgTwo'}
         `}
       >
@@ -42,14 +42,14 @@ function Slide({
       <div
         className={`
           pos-fixed top0 left0 h100 bgWhite
-          ${step === 'BAR_FULL_SCREEN' ? 'transX0 transition' : step !== 'SHOW_METRIC' ? 'transX100 transition' : 'transX200'}
+          ${step === 'BAR_FULL_SCREEN' ? 'transX0 transition' : step !== 'SHOW_METRIC' ? 'transX100 transition-bezier' : 'transX200'}
           ${step === 'BAR_FULL_SCREEN' ? 'w100' : 'w50'}
         `}
       >
         <div
           className={`
             pos-absolute bottom0 left0 w100 h100
-            ${step === 'BAR_FULL_SCREEN' ? 'transition' : 'transition-graph'}
+            ${step === 'BAR_FULL_SCREEN' ? 'transition-bezier' : 'transition-graph'}
             ${index % 2 === 0 ? 'bgTwo' : 'bgOne'}
           `}
           style={{

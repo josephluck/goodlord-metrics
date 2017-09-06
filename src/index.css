@@ -13,6 +13,7 @@ body, html, #root {
 .transition-quick { transition: all 0.2s }
 .transition { transition: all 0.3s }
 .transition-graph { transition: all 3s }
+.transition-bezier { transition: all 0.3s cubic-bezier(.55,0,.1,1) }
 
 .overflow-visible { overflow: visible }
 
