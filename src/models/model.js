@@ -1,35 +1,11 @@
 import * as listForm from './list-form'
 
-const slides = [
-  {
-    metric: 'Number of tenancies created',
-    target: 3,
-    actual: 2
-  },
-  {
-    metric: 'Number of tenants processed',
-    target: 2,
-    actual: 1,
-  },
-  {
-    metric: 'Number of agencies onboarded',
-    target: 6,
-    actual: 5,
-  },
-  {
-    metric: 'Number of sales',
-    target: 100,
-    actual: 90,
-  }
-]
-
 function resetState() {
   return {
     playing: false,
     currentSlide: {},
     currentSlideIndex: -1,
     currentStep: 'START',
-    slides,
   }
 }
 
@@ -37,14 +13,19 @@ export default {
   state: resetState(),
   reducers: {
     resetState,
-    setSlides(state, slides) {
-      return { slides }
+    bootstrap(state, persistedState) {
+      return {
+        form: {
+          ...state.form,
+          items: persistedState.form.items,
+        }
+      }
     },
     setPlaying(state, playing) {
       return { playing }
     },
     setSlide(state, newSlideIndex) {
-      const currentSlide = slides[newSlideIndex]
+      const currentSlide = state.form.items[newSlideIndex]
       return { currentSlideIndex: newSlideIndex, currentSlide }
     },
     setStep(state, newStep) {
@@ -53,7 +34,6 @@ export default {
   },
   effects: {
     startShow(state, actions) {
-      actions.setSlides(state.form.items)
       actions.location.set('/play')
       actions.nextSlide()
     },
@@ -74,7 +54,7 @@ export default {
       actions.setStep('RESET')
       pause(0.3)
         .then(() => {
-          if (state.currentSlideIndex === state.slides.length) {
+          if (state.currentSlideIndex === state.form.items.length) {
             actions.resetState()
           } else {
             actions.nextSlide()

@@ -2,11 +2,15 @@ import React from 'react'
 import TextField from '../components/text-field'
 import ListForm from '../components/list-form'
 import ListFormList from '../components/list-form-list'
+import Button from '../components/button'
 
 export default {
   view(state, prev, actions) {
     return (
-      <div>
+      <div className='pos-fixed top0 left0 h100 w100 bgNearWhite pa5'>
+        <div className='tr pb5'>
+          <Button onClick={actions.startShow}>Play</Button>
+        </div>
         <ListForm
           saveText='Save'
           saveChangesText='Save Changes'
@@ -23,6 +27,7 @@ export default {
                 value={state.form.fields.metric}
                 errors={state.form.errors.metric}
                 onChange={val => actions.form.setFields({ metric: val })}
+                className='mb3'
               />
               <TextField
                 label='Target'
@@ -31,6 +36,7 @@ export default {
                 value={state.form.fields.target}
                 errors={state.form.errors.target}
                 onChange={val => actions.form.setFields({ target: val })}
+                className='mb3'
               />
               <TextField
                 label='Actual'
@@ -39,6 +45,7 @@ export default {
                 value={state.form.fields.actual}
                 errors={state.form.errors.actual}
                 onChange={val => actions.form.setFields({ actual: val })}
+                className='mb3'
               />
             </div>
           )}
@@ -50,8 +57,21 @@ export default {
               items={state.form.items}
               item={(item) => {
                 return (
-                  <div>
-                    {item.metric}
+                  <div className='tc'>
+                    <p className='fsLarge fwBold lhTitle mb2'>
+                      {item.metric}
+                    </p>
+                    <div className='d-inline-flex items-center'>
+                      <div className='d-ib mr3'>
+                        <p className='tt-uppercase fsSmall fwMedium fLightGray mb1'>Target</p>
+                        <span className='fwMedium fsLarge'>{item.target}</span>
+                      </div>
+                      <i className="material-icons fLighterGray">arrow_forward</i>
+                      <div className='d-ib ml3'>
+                        <p className='tt-uppercase fsSmall fwMedium fLightGray mb1'>Actual</p>
+                        <span className='fwMedium fsLarge'>{item.actual}</span>
+                      </div>
+                    </div>
                   </div>
                 )
               }}
@@ -66,7 +86,6 @@ export default {
           onToggleVisibility={visible => actions.form.setFormVisibility({ visible })}
           autoShowForm={true}
         />
-        <a onClick={actions.startShow}>Play</a>
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Collapse from 'react-collapse'
 import { Component } from 'react'
 import parseNumber from '../utils/parse-number'
 
@@ -74,13 +75,13 @@ export class TextField extends Component {
     } = this.props
     return (
       <div className={className}>
-        <p>
+        <p className='fLightGray fsSmall mb1'>
           {label}
         </p>
         <input
           ref='input'
           className={`
-            
+            ba bcGray bcBlue--focus bra1 transition-quick pv2 ph3 w100
           `}
           autoFocus={autoFocus}
           type={type}
@@ -103,13 +104,18 @@ export class TextField extends Component {
             <p>{help}</p>
           ) : null
         }
-        {errors.map((error, index) => {
-          return (
-            <p key={index}>
-              {error}
-            </p>
-          )
-        })}
+        <Collapse isOpened={!!errors.length}>
+          {errors.map((error, index) => {
+            return (
+              <p
+                key={index}
+                className='fRed fsSmall pt1'
+              >
+                {error}
+              </p>
+            )
+          })}
+        </Collapse>
       </div>
     )
   }

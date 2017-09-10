@@ -1,4 +1,7 @@
 import * as React from 'react'
+import Button from './button'
+import Link from './link'
+import Collapse from 'react-collapse'
 
 export default function listForm({
   saveText,
@@ -22,41 +25,48 @@ export default function listForm({
     <div>
       {list}
 
-      {formShowing
-        ? (
-          <div>
-            {form}
-
-            <p className='tc'>
-              <a onClick={onSave}>
+      <div className={`pt3 transition-bezier ${formShowing ? 'o100' : 'o0'}`}>
+        <Collapse isOpened={formShowing}>
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              onSave()
+            }}
+          >
+            <div>
+              {form}
+            </div>
+            <p className='tc mb2'>
+              <Button type='submit'>
                 {isEditing ? saveChangesText : saveText}
-              </a>
+              </Button>
             </p>
+          </form>
 
-            {isEditing
-              ? (
-                <p className='tc'>
-                  <a onClick={onDiscardEdit}>
-                    Discard Changes
-                  </a>
-                </p>
-              )
-              : showCancelLink ? (
-                <p className='tc'>
-                  <a onClick={() => onToggleVisibility(false)}>Cancel</a>
-                </p>
-              ) : null
-            }
-          </div>
-        )
-        : (
-          <p className='tc'>
-            <a onClick={() => onToggleVisibility(true)}>
-              {numberOfItems > 0 ? addAnotherText : addText}
-            </a>
-          </p>
-        )
-      }
+          {isEditing
+            ? (
+              <p className='tc'>
+                <Link className='fsSmall' onClick={onDiscardEdit}>
+                  Discard Changes
+                </Link>
+              </p>
+            )
+            : showCancelLink ? (
+              <p className='tc'>
+                <Link className='fsSmall' onClick={() => onToggleVisibility(false)}>Cancel</Link>
+              </p>
+            ) : null
+          }
+        </Collapse>
+      </div>
+
+      <div className={`transition-bezier ${!formShowing ? 'o100' : 'o0'}`}>
+        <Collapse isOpened={!formShowing} className='tc'>
+          <Button onClick={() => onToggleVisibility(true)}>
+            {numberOfItems > 0 ? addAnotherText : addText}
+          </Button>
+        </Collapse>
+      </div>
     </div>
   )
 }

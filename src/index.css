@@ -3,10 +3,24 @@ body, html, #root {
   padding: 0;
   height: 100%;
   min-height: 100%;
-  font-family: sans-serif;
+  font-size: 18px;
 }
 
-* { box-sizing: border-box }
+* { box-sizing: border-box; outline: none; }
+p { padding: 0; margin: 0 }
+button { border: 0px }
+ul, li { list-style-type: none; padding: 0; margin: 0}
+
+input,
+button,
+body,
+html,
+#root {
+  color: #424242;
+  font-family: 'Work Sans', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .transition-quick { transition: all 0.2s }
 .transition { transition: all 0.3s }
@@ -16,10 +30,12 @@ body, html, #root {
 .overflow-visible { overflow: visible }
 
 .d-flex { display: flex }
+.d-ib { display: inline-block }
 .items-center { align-items: center }
 
 .center { margin: 0 auto }
 .tc { text-align: center }
+.tr { text-align: right }
 
 .pos-fixed { position: fixed }
 .pos-absolute { position: absolute }
@@ -34,6 +50,72 @@ body, html, #root {
 .w50 { width: 50% }
 .w100 { width: 100% }
 .h100 { height: 100% }
+
+.ba { border: solid 1px }
+.bra1 { border-radius: 0.125rem }
+
+.pt1 { padding-top: 0.5rem }
+.pb1 { padding-bottom: 0.5rem }
+.pl1 { padding-left: 0.5rem }
+.pr1 { padding-right: 0.5rem }
+.pv1 { padding-top: 0.5rem; padding-bottom: 0.5rem }
+.ph1 { padding-left: 0.5rem; padding-right: 0.5rem }
+.pt2 { padding-top: 0.75rem }
+.pb2 { padding-bottom: 0.75rem }
+.pl2 { padding-left: 0.75rem }
+.pr2 { padding-right: 0.75rem }
+.pv2 { padding-top: 0.75rem; padding-bottom: 0.75rem }
+.ph2 { padding-left: 0.75rem; padding-right: 0.75rem }
+.pt3 { padding-top: 1rem }
+.pb3 { padding-bottom: 1rem }
+.pl3 { padding-left: 1rem }
+.pr3 { padding-right: 1rem }
+.pv3 { padding-top: 1rem; padding-bottom: 1rem }
+.ph3 { padding-left: 1rem; padding-right: 1rem }
+.pt4 { padding-top: 1.5rem }
+.pb4 { padding-bottom: 1.5rem }
+.pl4 { padding-left: 1.5rem }
+.pr4 { padding-right: 1.5rem }
+.pv4 { padding-top: 1.5rem; padding-bottom: 1.5rem }
+.ph4 { padding-left: 1.5rem; padding-right: 1.5rem }
+.pa5 { padding: 2rem; }
+.pt5 { padding-top: 2rem }
+.pb5 { padding-bottom: 2rem }
+.pl5 { padding-left: 2rem }
+.pr5 { padding-right: 2rem }
+.pv5 { padding-top: 2rem; padding-bottom: 2rem }
+.ph5 { padding-left: 2rem; padding-right: 2rem }
+.pa5 { padding: 2rem; }
+
+.mt1 { margin-top: 0.5rem }
+.mb1 { margin-bottom: 0.5rem }
+.ml1 { margin-left: 0.5rem }
+.mr1 { margin-right: 0.5rem }
+.mv1 { margin-top: 0.5rem; margin-bottom: 0.5rem }
+.mh1 { margin-left: 0.5rem; margin-right: 0.5rem }
+.mt2 { margin-top: 0.75rem }
+.mb2 { margin-bottom: 0.75rem }
+.ml2 { margin-left: 0.75rem }
+.mr2 { margin-right: 0.75rem }
+.mv2 { margin-top: 0.75rem; margin-bottom: 0.75rem }
+.mh2 { margin-left: 0.75rem; margin-right: 0.75rem }
+.mt3 { margin-top: 1rem }
+.mb3 { margin-bottom: 1rem }
+.ml3 { margin-left: 1rem }
+.mr3 { margin-right: 1rem }
+.mv3 { margin-top: 1rem; margin-bottom: 1rem }
+.mh3 { margin-left: 1rem; margin-right: 1rem }
+
+.fsSmall { font-size: 0.8rem }
+.fsLarge { font-size: 1.5rem }
+.fsHuge { font-size: 2.5rem }
+
+.fwMedium { font-weight: 500 }
+.fwBold { font-weight: 700 }
+
+.lhTitle { line-height: 1.2em }
+
+.tt-uppercase { text-transform: uppercase }
 
 .transX-100 { transform: translateX(-100%) }
 .transX-50 { transform: translateX(-50%) }
@@ -51,18 +133,34 @@ body, html, #root {
 .transY200 { transform: translateY(200%) }
 
 .fLight { color: white }
-.fDark { color: black }
+.fLight--hover:hover { color: white }
+.fLighterGray { color: #BDBDBD }
+.fLightGray { color: #757575 }
+.fDark { color: #424242 }
+.fRed { color: #F44336 }
+.fBlue { color: #2196F3 }
+.fDarkBlue--hover:hover { color: #1976D2 }
 
 .bgLight { background: white }
+.bgNearWhite { background: #FAFAFA }
+.bgLightGray { background: #E0E0E0 }
+.bgGray { background: #9E9E9E }
 .bgOne { background: #4fcead }
-.bgTwo { background: #656d78 }
+/*.bgTwo { background: #656d78 } old*/
+.bgTwo { background: #cb7474 }
+.bgBlue { background: #2196F3 }
+.bgBlue--hover:hover { background: #2196F3 }
+.bgDarkBlue--hover:hover { background: #1976D2 }
 
-.pt3 { padding-top: 1rem }
-.pb3 { padding-bottom: 1rem }
-.pv3 { padding-top: 1rem; padding-bottom: 1rem }
+.bcLightGray { border-color: #BDBDBD }
+.bcGray { border-color: #9E9E9E }
+.bcBlue--focus:focus { border-color: #2196F3 }
 
 .z1 { z-index: 1 }
 .z2 { z-index: 2 }
 
 .o0 { opacity: 0 }
+.o50 { opacity: 0.5 }
 .o100 { opacity: 1 }
+
+.c-pointer { cursor: pointer; }

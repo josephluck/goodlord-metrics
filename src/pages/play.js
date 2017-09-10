@@ -1,5 +1,5 @@
 import React from 'react'
-// import Collapse from 'react-collapse'
+import Collapse from 'react-collapse'
 import Typist from 'react-typist'
 import Count from 'react-animated-number'
 
@@ -12,6 +12,23 @@ function Bar({
   showing,
   label,
 }) {
+  // const Label = () => {
+  //   return (
+  //     <div className='d-ib'>
+  //       <p className='tc fwBold fsHuge'>
+  //         {label}
+  //       </p>
+  //       <Collapse isOpened={showing && value > 0}>
+  //         <Count
+  //           className='fwBold fsHuge pt4'
+  //           value={showing ? value : 0}
+  //           duration={3000}
+  //           stepPrecision={0}
+  //         />
+  //       </Collapse>
+  //     </div>
+  //   )
+  // }
   let clampedPercentage = percentage > 100 ? 100 : percentage
   const getGraphBottomOffset = () => {
     if (showing) {
@@ -37,13 +54,20 @@ function Bar({
           transform: `translateY(${getGraphBottomOffset()}%)`
         }}
       />
-      <div className='center pos-relative fDark z1'>
-        {label}
-        <Count
-          value={showing ? value : 0}
-          duration={3000}
-          stepPrecision={0}
-        />
+      <div className='center pos-relative fDark z1 tc'>
+        <div className='d-ib'>
+          <p className='tc fwBold fsHuge'>
+            {label}
+          </p>
+          <Collapse isOpened={showing && value > 0}>
+            <Count
+              className='fwBold fsHuge pt4'
+              value={showing ? value : 0}
+              duration={3000}
+              stepPrecision={0}
+            />
+          </Collapse>
+        </div>
       </div>
     </div>
   )
@@ -68,13 +92,14 @@ function Slide({
     >
       <div
         className={`
-          pos-fixed top0 left50 transX-50 transition-bezier pv3 z2
+          pos-fixed top0 h100 w100 transition-bezier z2
           ${step === 'RESET' ? 'o0' : 'o100'}
+          ${step === 'START' ? 'transY50' : 'transY25'}
         `}
       >
         {currentSlideIndex === index
           ? (
-            <Typist cursor={{ show: false }}>
+            <Typist cursor={{ show: false }} className='fsHuge fwBold tc'>
               {metric}
             </Typist>
           ) : null
@@ -127,12 +152,13 @@ function Slide({
 
 export default {
   view(state, prev, actions) {
+    const slides = state.form.items
     return (
       <div>
         {state.playing === true
           ? (
             <div>
-              {state.slides.map((slide, index) => {
+              {slides.map((slide, index) => {
                 return (
                   <Slide
                     key={index}
@@ -141,7 +167,7 @@ export default {
                     index={index}
                     currentSlideIndex={state.currentSlideIndex}
                     style={{
-                      zIndex: index === state.currentSlideIndex ? '100' : state.slides.length - index,
+                      zIndex: index === state.currentSlideIndex ? '100' : slides.length - index,
                     }}
                     onPlayNextSlideClick={actions.playNext}
                   />
