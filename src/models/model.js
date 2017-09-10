@@ -1,11 +1,14 @@
 import * as listForm from './list-form'
 
+const getRandomVerticalOffset = () => Math.floor(Math.random() * 20) + 10
+
 function resetState() {
   return {
     playing: false,
     currentSlide: {},
     currentSlideIndex: -1,
     currentStep: 'START',
+    randomVerticalOffset: getRandomVerticalOffset(),
   }
 }
 
@@ -30,6 +33,9 @@ export default {
     },
     setStep(state, newStep) {
       return { currentStep: newStep }
+    },
+    setRandomVerticalOffset() {
+      return { randomVerticalOffset: getRandomVerticalOffset() }
     }
   },
   effects: {
@@ -38,6 +44,7 @@ export default {
       actions.nextSlide()
     },
     nextSlide(state, actions) {
+      actions.setRandomVerticalOffset()
       if (state.playing === false) {
         actions.setPlaying(true)
       }
@@ -45,9 +52,9 @@ export default {
       actions.setSlide(state.currentSlideIndex + 1)
       pause(3)
         .then(() => actions.setStep('SHOW_TARGET_ACTUAL_TEXT'))
-        .then(() => pause(3))
+        .then(() => pause(0.5))
         .then(() => actions.setStep('SHOW_TARGET_PERCENTAGE'))
-        .then(() => pause(3))
+        .then(() => pause(4))
         .then(() => actions.setStep('SHOW_ACTUAL_PERCENTAGE'))
     },
     playNext(state, actions) {

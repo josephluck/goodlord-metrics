@@ -3,6 +3,29 @@ import Collapse from 'react-collapse'
 import Typist from 'react-typist'
 import Count from 'react-animated-number'
 
+function ShowMetric({
+  label,
+  showing,
+  value,
+  className,
+}) {
+  return (
+    <div className={`d-ib ${className}`}>
+      <p className='tc fwBold fsHuge'>
+        {label}
+      </p>
+      <Collapse isOpened={showing && value > 0}>
+        <Count
+          className='fwBold fsHuge pt4'
+          value={showing ? value : 0}
+          duration={3000}
+          stepPrecision={0}
+        />
+      </Collapse>
+    </div>
+  )
+}
+
 function Bar({
   step,
   percentage,
@@ -11,24 +34,8 @@ function Bar({
   className,
   showing,
   label,
+  randomVerticalOffset,
 }) {
-  // const Label = () => {
-  //   return (
-  //     <div className='d-ib'>
-  //       <p className='tc fwBold fsHuge'>
-  //         {label}
-  //       </p>
-  //       <Collapse isOpened={showing && value > 0}>
-  //         <Count
-  //           className='fwBold fsHuge pt4'
-  //           value={showing ? value : 0}
-  //           duration={3000}
-  //           stepPrecision={0}
-  //         />
-  //       </Collapse>
-  //     </div>
-  //   )
-  // }
   let clampedPercentage = percentage > 100 ? 100 : percentage
   const getGraphBottomOffset = () => {
     if (showing) {
@@ -40,9 +47,12 @@ function Bar({
   return (
     <div
       className={`
-        pos-absolute top0 left0 h100 w100 d-flex items-center
+        pos-absolute bottom0 left0 w100 d-flex items-center
         ${className}
       `}
+      style={{
+        height: `${100 - randomVerticalOffset}%`,
+      }}
     >
       <div
         className={`
@@ -51,22 +61,43 @@ function Bar({
           ${color}
         `}
         style={{
-          transform: `translateY(${getGraphBottomOffset()}%)`
+          transform: `translateY(${getGraphBottomOffset()}%)`,
         }}
       />
-      <div className='center pos-relative fDark z1 tc'>
-        <div className='d-ib'>
-          <p className='tc fwBold fsHuge'>
-            {label}
-          </p>
-          <Collapse isOpened={showing && value > 0}>
-            <Count
-              className='fwBold fsHuge pt4'
-              value={showing ? value : 0}
-              duration={3000}
-              stepPrecision={0}
-            />
-          </Collapse>
+      <div
+        className='pos-absolute top0 left0 w100 h100'
+        style={{ transform: 'translateY(-10%)' }}
+      >
+        <div
+          className='pos-absolute top50 left0 w100 z1 tc transY-50 transition-graph'
+          style={{
+            marginTop: `-${randomVerticalOffset}%`,
+          }}
+        >
+          <ShowMetric
+            label={label}
+            showing={showing}
+            value={value}
+            className='fDark'
+          />
+        </div>
+      </div>
+      <div
+        className='pos-absolute top0 left0 w100 h100'
+        style={{ transform: 'translateY(10%)' }}
+      >
+        <div
+          className='pos-absolute top50 left0 w100 z1 tc transY-50'
+          style={{
+            marginTop: `-${randomVerticalOffset}%`,
+          }}
+        >
+          <ShowMetric
+            label={label}
+            showing={showing}
+            value={value}
+            className='fLight'
+          />
         </div>
       </div>
     </div>
@@ -82,6 +113,7 @@ function Slide({
   currentSlideIndex,
   style = {},
   onPlayNextSlideClick,
+  randomVerticalOffset,
 }) {
   return (
     <div
@@ -115,6 +147,7 @@ function Slide({
           step={step}
           percentage={(target / actual) * 100}
           showing={step === 'SHOW_TARGET_PERCENTAGE' || step === 'SHOW_ACTUAL_PERCENTAGE' || step === 'RESET'}
+          randomVerticalOffset={randomVerticalOffset}
           value={target}
           color='bgTwo'
           label='Target'
@@ -130,6 +163,7 @@ function Slide({
           step={step}
           percentage={(actual / target) * 100}
           showing={step === 'SHOW_ACTUAL_PERCENTAGE' || step === 'RESET'}
+          randomVerticalOffset={randomVerticalOffset}
           value={actual}
           color='bgOne'
           label='Actual'
@@ -139,7 +173,7 @@ function Slide({
         ? (
           <button
             onClick={onPlayNextSlideClick}
-            className='pos-fixed bottom0 right0'
+            className='pos-fixed bottom0 right0 z3'
           >
             Next
           </button>
@@ -170,6 +204,7 @@ export default {
                       zIndex: index === state.currentSlideIndex ? '100' : slides.length - index,
                     }}
                     onPlayNextSlideClick={actions.playNext}
+                    randomVerticalOffset={state.randomVerticalOffset}
                   />
                 )
               })}

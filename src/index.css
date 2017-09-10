@@ -41,10 +41,14 @@ html,
 .pos-absolute { position: absolute }
 
 .top0 { top: 0 }
+.top50 { top: 50% }
 .left0 { left: 0 }
 .left50 { left: 50% }
-.bottom0 { bottom: 0 }
+.top0 { top: 0 }
+.bottom0 { bottom: 0% }
+.bottom50 { bottom: 50% }
 .right0 { right: 0 }
+.right50 { right: 50% }
 
 .w0 { width: 0% }
 .w50 { width: 50% }
@@ -125,6 +129,7 @@ html,
 .transX75 { transform: translateX(75%) }
 .transX100 { transform: translateX(100%) }
 .transX200 { transform: translateX(200%) }
+.transY-50 { transform: translateY(-50%) }
 .transY0 { transform: translateY(0%) }
 .transY25 { transform: translateY(25%) }
 .transY50 { transform: translateY(50%) }
@@ -158,6 +163,7 @@ html,
 
 .z1 { z-index: 1 }
 .z2 { z-index: 2 }
+.z3 { z-index: 3 }
 
 .o0 { opacity: 0 }
 .o50 { opacity: 0.5 }
