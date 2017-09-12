@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cp ./public/index.html ./build/200.html && cp ./public/index.html ./build/404.html",
+    "build": "react-scripts build && cp ./build/index.html ./build/200.html && cp ./public/index.html ./build/404.html",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && surge ./build goodlord-metrics.surge.sh"
