@@ -1,4 +1,5 @@
 import * as listForm from './list-form'
+import fire from '../components/rockets'
 
 const getRandomVerticalOffset = () => Math.floor(Math.random() * 20) + 10
 
@@ -9,6 +10,7 @@ function resetState() {
     currentSlideIndex: -1,
     currentStep: 'START',
     randomVerticalOffset: getRandomVerticalOffset(),
+    roadTo51: 0,
   }
 }
 
@@ -20,9 +22,13 @@ export default {
       return {
         form: {
           ...state.form,
-          items: persistedState.form.items,
-        }
+          items: persistedState.form.items || [],
+        },
+        roadTo51: persistedState.roadTo51 || 0,
       }
+    },
+    setRoadTo51(state, roadTo51) {
+      return { roadTo51 }
     },
     setPlaying(state, playing) {
       return { playing }
@@ -56,17 +62,33 @@ export default {
         .then(() => actions.setStep('SHOW_TARGET_PERCENTAGE'))
         .then(() => pause(4))
         .then(() => actions.setStep('SHOW_ACTUAL_PERCENTAGE'))
+        .then(() => pause(4))
+        .then(actions.playNext)
     },
     playNext(state, actions) {
       actions.setStep('RESET')
       pause(0.3)
         .then(() => {
-          if (state.currentSlideIndex === state.form.items.length) {
-            actions.resetState()
+          if (state.currentSlideIndex === state.form.items.length - 1) {
+            actions.playRoadTo51()
           } else {
             actions.nextSlide()
           }
         })
+    },
+    playRoadTo51(state, actions) {
+      actions.setStep('ROAD_TO_51_START')
+      pause(1)
+        .then(() => actions.setStep('ROAD_TO_51_SHOW_TARGET'))
+        .then(() => pause(4))
+        .then(() => actions.setStep('ROAD_TO_51_SHOW_ACTUAL'))
+        .then(() => pause(4))
+        .then(() => {
+          if (state.roadTo51 >= 51) {
+            fire()
+          }
+        })
+      // .then(actions.resetState)
     }
   },
   models: {
