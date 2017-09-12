@@ -47,7 +47,7 @@ export default {
   effects: {
     startShow(state, actions) {
       actions.location.set('/play')
-      actions.nextSlide()
+      // actions.nextSlide()
     },
     nextSlide(state, actions) {
       actions.setRandomVerticalOffset()
@@ -58,7 +58,7 @@ export default {
       actions.setSlide(state.currentSlideIndex + 1)
       pause(3)
         .then(() => actions.setStep('SHOW_TARGET_ACTUAL_TEXT'))
-        .then(() => pause(0.5))
+        .then(() => pause(1.5))
         .then(() => actions.setStep('SHOW_TARGET_PERCENTAGE'))
         .then(() => pause(4))
         .then(() => actions.setStep('SHOW_ACTUAL_PERCENTAGE'))
@@ -67,7 +67,7 @@ export default {
     },
     playNext(state, actions) {
       actions.setStep('RESET')
-      pause(0.3)
+      pause(1)
         .then(() => {
           if (state.currentSlideIndex === state.form.items.length - 1) {
             actions.playRoadTo51()
@@ -77,18 +77,21 @@ export default {
         })
     },
     playRoadTo51(state, actions) {
-      actions.setStep('ROAD_TO_51_START')
+      actions.setStep('RESET')
       pause(1)
+        .then(() => actions.setStep('ROAD_TO_51_START'))
+        .then(() => pause(1))
+        .then(() => actions.setStep('ROAD_TO_51_SHOW_LABEL'))
+        .then(() => pause(1))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_TARGET'))
         .then(() => pause(4))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_ACTUAL'))
-        .then(() => pause(4))
+        .then(() => pause(6))
         .then(() => {
           if (state.roadTo51 >= 51) {
             fire()
           }
         })
-      // .then(actions.resetState)
     }
   },
   models: {

@@ -2,9 +2,57 @@ import React from 'react'
 import Collapse from 'react-collapse'
 import Typist from 'react-typist'
 import Count from 'react-animated-number'
+import Button from '../components/button'
 
 function formatNumber(n) {
   return parseFloat(n).toFixed(1).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').slice(0, -2)
+}
+
+function RoadTo51({
+  step,
+  percentage,
+}) {
+  return (
+    <div
+      className={`
+      pos-fixed top0 left0 w100 h100 bgDark z5
+      ${step.includes('ROAD_TO_51') ? 'o100' : 'o0'}
+    `}
+    >
+      <div
+        className={`
+        pos-absolute mt50 thick-white-dash z3
+        ${step === 'ROAD_TO_51_SHOW_TARGET' ? 'transition-graph w100 ml0' : 'transition-bezier w0 ml50'}
+        ${step === 'ROAD_TO_51_SHOW_TARGET' ? 'o100' : 'o0'}
+      `}
+        style={{
+          transform: 'translateY(-25px)',
+        }}
+      />
+      <div className='pos-fixed top50 left0 w100 tc z3'>
+        <Collapse
+          isOpened={step === 'ROAD_TO_51_SHOW_TARGET'}
+          className='transY-50 d-ib'
+        >
+          <div className='center bgDark ph3 fsMassive'>The Road to 51%</div>
+        </Collapse>
+      </div>
+      {step === 'ROAD_TO_51_SHOW_TARGET' || step === 'ROAD_TO_51_SHOW_LABEL' || step === 'ROAD_TO_51_SHOW_ACTUAL'
+        ? (
+          <Bar
+            step=''
+            percentage={percentage}
+            showing={step === 'ROAD_TO_51_SHOW_ACTUAL'}
+            randomVerticalOffset={0}
+            value={percentage}
+            color='bgOne'
+            label={step === 'ROAD_TO_51_SHOW_LABEL' || step === 'ROAD_TO_51_SHOW_ACTUAL' ? `We're at` : ''}
+            showPercentageInLabel={true}
+          />
+        ) : null
+      }
+    </div>
+  )
 }
 
 function ShowMetric({
@@ -172,7 +220,7 @@ export default {
                       index={index}
                       currentSlideIndex={state.currentSlideIndex}
                       style={{
-                        zIndex: index === state.currentSlideIndex ? '100' : slides.length - index,
+                        zIndex: index === state.currentSlideIndex ? '4' : slides.length - index,
                       }}
                       onPlayNextSlideClick={actions.playNext}
                       randomVerticalOffset={state.randomVerticalOffset}
@@ -180,52 +228,22 @@ export default {
                   )
                 })}
               </div>
-              <div
-                className={`
-                  pos-fixed top0 left0 w100 h100 bgDark transition-bezier z4
-                  ${state.currentStep.includes('ROAD_TO_51') ? 'o100' : 'o0'}
-                `}
-              >
-                <div
-                  className={`
-                    pos-absolute mt50 thick-white-dash z3
-                    ${state.currentStep === 'ROAD_TO_51_SHOW_TARGET' ? 'transition-graph w100 ml0' : 'transition-bezier w0 ml50'}
-                    ${state.currentStep === 'ROAD_TO_51_SHOW_TARGET' ? 'o100' : 'o0'}
-                  `}
-                  style={{
-                    transform: 'translateY(-25px)',
-                  }}
-                />
-                <div className='pos-fixed top50 left0 w100 tc z3'>
-                  <Collapse
-                    isOpened={state.currentStep === 'ROAD_TO_51_SHOW_TARGET'}
-                    className='transY-50 d-ib'
-                  >
-                    <div className='center bgDark ph3 fsMassive'>The Road to 51%</div>
-                  </Collapse>
-                </div>
-                <Bar
-                  step=''
-                  percentage={state.roadTo51}
-                  showing={state.currentStep === 'ROAD_TO_51_SHOW_ACTUAL'}
-                  randomVerticalOffset={0}
-                  value={state.roadTo51}
-                  color='bgOne'
-                  label={`We're at`}
-                  showPercentageInLabel={true}
-                />
-              </div>
+              <RoadTo51
+                step={state.currentStep}
+                percentage={state.roadTo51}
+              />
             </div>
           ) : null
         }
         {state.playing === false
           ? (
-            <button
-              type='button'
-              onClick={actions.nextSlide}
-            >
-              Start
-            </button>
+            <div className='pos-fixed top0 left0 h100 w100 d-flex items-center'>
+              <div className='tc w100'>
+                <Button onClick={actions.nextSlide}>
+                  Start
+                </Button>
+              </div>
+            </div>
           ) : null
         }
       </div>
