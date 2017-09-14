@@ -86,7 +86,7 @@ export default {
         .then(() => actions.setStep('ROAD_TO_51_SHOW_TARGET'))
         .then(() => pause(4))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_ACTUAL'))
-        .then(() => pause(6))
+        .then(() => pause(9))
         .then(() => {
           if (state.roadTo51 >= 51) {
             fire()

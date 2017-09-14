@@ -30,6 +30,7 @@ html,
 .transition-quick { transition: all 0.2s }
 .transition { transition: all 0.3s }
 .transition-graph { transition: all 3s }
+.transition-graph-slow { transition: all 6s }
 .transition-bezier { transition: all 0.3s cubic-bezier(.55,0,.1,1) }
 
 .overflow-visible { overflow: visible }
@@ -63,7 +64,6 @@ html,
 .h100 { height: 100% }
 
 .ba { border: solid 1px }
-.thick-white-dash { border: dashed 2px white }
 .bra1 { border-radius: 0.125rem }
 
 .pt1 { padding-top: 0.5rem }

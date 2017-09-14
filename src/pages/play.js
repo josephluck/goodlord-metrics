@@ -19,38 +19,32 @@ function RoadTo51({
       ${step.includes('ROAD_TO_51') ? 'o100' : 'o0'}
     `}
     >
-      <div
-        className={`
-        pos-absolute mt50 thick-white-dash z3
-        ${step === 'ROAD_TO_51_SHOW_TARGET' ? 'transition-graph w100 ml0' : 'transition-bezier w0 ml50'}
-        ${step === 'ROAD_TO_51_SHOW_TARGET' ? 'o100' : 'o0'}
-      `}
-        style={{
-          transform: 'translateY(-25px)',
-        }}
-      />
       <div className='pos-fixed top50 left0 w100 tc z3'>
         <Collapse
-          isOpened={step === 'ROAD_TO_51_SHOW_TARGET'}
-          className='transY-50 d-ib'
+          isOpened={step === 'ROAD_TO_51_SHOW_LABEL' || step === 'ROAD_TO_51_SHOW_TARGET'}
+          className='transY-50 bgDark d-ib'
         >
-          <div className='center bgDark ph3 fsMassive'>The Road to 51%</div>
+          <div className='center ph3 fsMassive'>The Road to 51%</div>
         </Collapse>
       </div>
-      {step === 'ROAD_TO_51_SHOW_TARGET' || step === 'ROAD_TO_51_SHOW_LABEL' || step === 'ROAD_TO_51_SHOW_ACTUAL'
-        ? (
-          <Bar
-            step=''
-            percentage={percentage}
-            showing={step === 'ROAD_TO_51_SHOW_ACTUAL'}
-            randomVerticalOffset={0}
-            value={percentage}
-            color='bgOne'
-            label={step === 'ROAD_TO_51_SHOW_LABEL' || step === 'ROAD_TO_51_SHOW_ACTUAL' ? `We're at` : ''}
-            showPercentageInLabel={true}
-          />
-        ) : null
-      }
+      <div
+        className={`
+          were-at transition-bezier
+          ${step === 'ROAD_TO_51_SHOW_TARGET' || step === 'ROAD_TO_51_SHOW_ACTUAL' ? 'o100' : 'o0'}
+        `}
+      >
+        <Bar
+          step=''
+          percentage={percentage}
+          showing={step === 'ROAD_TO_51_SHOW_ACTUAL'}
+          randomVerticalOffset={0}
+          value={percentage}
+          color='bgOne'
+          label={`We're at`}
+          showPercentageInLabel={true}
+          duration='slow'
+        />
+      </div>
     </div>
   )
 }
@@ -61,17 +55,19 @@ function ShowMetric({
   value,
   className,
   showPercentageInLabel = false,
+  duration = 'normal'
 }) {
+  const timing = duration === 'slow' ? 6000 : 3000
   return (
     <div className={`d-ib ${className}`}>
       <p className='tc fsHuge'>
         {label}
       </p>
-      <Collapse isOpened={value && showing && value > 0}>
+      <Collapse isOpened={!!value && showing && value > 0}>
         <Count
           className='fsHuge pt3 d-ib'
           value={showing && value ? parseFloat(value) : 0}
-          duration={3000}
+          duration={timing}
           stepPrecision={0}
           formatValue={n => n ? `${formatNumber(n)}${showPercentageInLabel ? '%' : ''}` : ''}
         />
@@ -90,6 +86,7 @@ function Bar({
   label,
   randomVerticalOffset,
   showPercentageInLabel = false,
+  duration = 'normal',
 }) {
   let clampedPercentage = percentage > 100 ? 100 : percentage
   const getGraphBottomOffset = () => {
@@ -112,7 +109,7 @@ function Bar({
       <div
         className={`
           pos-absolute bottom0 left0 w100 h100
-          ${step === 'RESET' ? 'transition-bezier' : 'transition-graph'}
+          ${step === 'RESET' ? 'transition-bezier' : duration === 'slow' ? 'transition-graph-slow' : 'transition-graph'}
           ${color}
         `}
         style={{
@@ -126,6 +123,7 @@ function Bar({
             showing={showing}
             value={value}
             showPercentageInLabel={showPercentageInLabel}
+            duration={duration}
           />
         </div>
       </div>
