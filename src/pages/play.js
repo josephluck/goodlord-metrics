@@ -15,9 +15,12 @@ function RoadTo51({
   return (
     <div
       className={`
-      pos-fixed top0 left0 w100 h100 bgDark z5
-      ${step.includes('ROAD_TO_51') ? 'o100' : 'o0'}
-    `}
+        pos-fixed top0 left0 w100 h100 bgDark
+        ${step.includes('ROAD_TO_51') ? 'o100' : 'o0'}
+      `}
+      style={{
+        zIndex: 99999,
+      }}
     >
       <div className='pos-fixed top50 left0 w100 tc z3'>
         <Collapse
