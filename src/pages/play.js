@@ -218,7 +218,7 @@ export default {
                       index={index}
                       currentSlideIndex={state.currentSlideIndex}
                       style={{
-                        zIndex: index === state.currentSlideIndex ? '4' : slides.length - index,
+                        zIndex: index === state.currentSlideIndex ? '9999' : slides.length - index,
                       }}
                       onPlayNextSlideClick={actions.playNext}
                       randomVerticalOffset={state.randomVerticalOffset}
