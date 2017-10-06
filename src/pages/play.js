@@ -46,6 +46,7 @@ function RoadTo51({
           label={`We're at`}
           showPercentageInLabel={true}
           duration='slow'
+          round={false}
         />
       </div>
     </div>
@@ -58,7 +59,8 @@ function ShowMetric({
   value,
   className,
   showPercentageInLabel = false,
-  duration = 'normal'
+  duration = 'normal',
+  round = true,
 }) {
   const timing = duration === 'slow' ? 6000 : 3000
   return (
@@ -71,8 +73,8 @@ function ShowMetric({
           className='fsHuge pt3 d-ib'
           value={showing && value ? parseFloat(value) : 0}
           duration={timing}
-          stepPrecision={0}
-          formatValue={n => n ? `${formatNumber(n)}${showPercentageInLabel ? '%' : ''}` : ''}
+          stepPrecision={round ? 0 : 2}
+          formatValue={n => n ? `${round ? formatNumber(n) : n.toFixed(2)}${showPercentageInLabel ? '%' : ''}` : ''}
         />
       </Collapse>
     </div>
@@ -90,6 +92,7 @@ function Bar({
   randomVerticalOffset,
   showPercentageInLabel = false,
   duration = 'normal',
+  round = true,
 }) {
   let clampedPercentage = percentage > 100 ? 100 : percentage
   const getGraphBottomOffset = () => {
@@ -127,6 +130,7 @@ function Bar({
             value={value}
             showPercentageInLabel={showPercentageInLabel}
             duration={duration}
+            round={round}
           />
         </div>
       </div>
