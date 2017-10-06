@@ -55,6 +55,22 @@ export default {
                   onChange={val => actions.form.setFields({ actual: val })}
                   className='mb3'
                 />
+                <TextField
+                  label='Prefix (i.e. £)'
+                  id='prefix'
+                  value={state.form.fields.prefix}
+                  errors={state.form.errors.prefix}
+                  onChange={val => actions.form.setFields({ prefix: val })}
+                  className='mb3'
+                />
+                <TextField
+                  label='Suffix (i.e. %)'
+                  id='suffix'
+                  value={state.form.fields.suffix}
+                  errors={state.form.errors.suffix}
+                  onChange={val => actions.form.setFields({ suffix: val })}
+                  className='mb3'
+                />
               </div>
             )}
             list={(

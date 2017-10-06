@@ -22,7 +22,7 @@ export default {
       return {
         form: {
           ...state.form,
-          items: persistedState.form.items || [],
+          items: persistedState.form.items.map(makeFormItem) || [],
         },
         roadTo51: persistedState.roadTo51 || 0,
       }
@@ -101,6 +101,8 @@ export default {
           metric: { presence: true },
           target: { presence: true },
           actual: { presence: true },
+          prefix: undefined,
+          suffix: undefined,
         }
       },
       defaultForm: () => {
@@ -108,9 +110,21 @@ export default {
           metric: '',
           target: 0,
           actual: 0,
+          prefix: '',
+          suffix: '',
         }
       },
     }),
+  }
+}
+
+function makeFormItem(item) {
+  return {
+    metric: item.metric || '',
+    target: item.target || 0,
+    actual: item.actual || 0,
+    prefix: item.prefix || '',
+    suffix: item.suffix || '',
   }
 }
 

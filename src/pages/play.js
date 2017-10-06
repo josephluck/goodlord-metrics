@@ -44,7 +44,7 @@ function RoadTo51({
           value={percentage}
           color='bgOne'
           label={`We're at`}
-          showPercentageInLabel={true}
+          suffix='%'
           duration='slow'
           round={false}
         />
@@ -58,9 +58,10 @@ function ShowMetric({
   showing,
   value,
   className,
-  showPercentageInLabel = false,
   duration = 'normal',
   round = true,
+  prefix,
+  suffix,
 }) {
   const timing = duration === 'slow' ? 6000 : 3000
   return (
@@ -74,7 +75,7 @@ function ShowMetric({
           value={showing && value ? parseFloat(value) : 0}
           duration={timing}
           stepPrecision={round ? 0 : 2}
-          formatValue={n => n ? `${round ? formatNumber(n) : n.toFixed(2)}${showPercentageInLabel ? '%' : ''}` : ''}
+          formatValue={n => n ? `${prefix || ''}${round ? formatNumber(n) : n.toFixed(2)}${suffix || ''}` : ''}
         />
       </Collapse>
     </div>
@@ -93,6 +94,8 @@ function Bar({
   showPercentageInLabel = false,
   duration = 'normal',
   round = true,
+  prefix,
+  suffix,
 }) {
   let clampedPercentage = percentage > 100 ? 100 : percentage
   const getGraphBottomOffset = () => {
@@ -131,6 +134,8 @@ function Bar({
             showPercentageInLabel={showPercentageInLabel}
             duration={duration}
             round={round}
+            prefix={prefix}
+            suffix={suffix}
           />
         </div>
       </div>
@@ -148,6 +153,8 @@ function Slide({
   style = {},
   onPlayNextSlideClick,
   randomVerticalOffset,
+  prefix,
+  suffix,
 }) {
   return (
     <div
@@ -185,6 +192,8 @@ function Slide({
           value={target}
           color='bgTwo'
           label='Target'
+          prefix={prefix}
+          suffix={suffix}
         />
       </div>
       <div
@@ -201,6 +210,8 @@ function Slide({
           value={actual}
           color='bgOne'
           label='Actual'
+          prefix={prefix}
+          suffix={suffix}
         />
       </div>
     </div>
