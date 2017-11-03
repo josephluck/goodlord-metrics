@@ -13,7 +13,7 @@ export default {
             <Button onClick={actions.startShow}>Play</Button>
           </div>
           <TextField
-            label='Road to 51%'
+            label={`Road to 51% - set to 0 if you don't want it to play :-)`}
             id='road-to-51'
             value={state.roadTo51}
             onChange={actions.setRoadTo51}

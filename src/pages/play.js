@@ -251,7 +251,7 @@ export default {
             </div>
           ) : null
         }
-        {state.playing === false
+        {state.playing === false && state.done === false
           ? (
             <div className='pos-fixed top0 left0 h100 w100 d-flex items-center'>
               <div className='tc w100'>
@@ -259,6 +259,15 @@ export default {
                   Start
                 </Button>
               </div>
+            </div>
+          ) : null
+        }
+        {state.playing === false && state.done === true
+          ? (
+            <div className='pos-fixed top0 left0 h100 w100 d-flex items-center'>
+              <Typist cursor={{ show: false }} className='w100 fsMassive tc'>
+                Have an Awesome Weekend!
+              </Typist>
             </div>
           ) : null
         }

@@ -11,6 +11,7 @@ function resetState() {
     currentStep: 'START',
     randomVerticalOffset: getRandomVerticalOffset(),
     roadTo51: 0,
+    done: false,
   }
 }
 
@@ -42,6 +43,12 @@ export default {
     },
     setRandomVerticalOffset() {
       return { randomVerticalOffset: getRandomVerticalOffset() }
+    },
+    showThanks() {
+      return {
+        ...resetState(),
+        done: true,
+      }
     }
   },
   effects: {
@@ -70,7 +77,11 @@ export default {
       pause(1)
         .then(() => {
           if (state.currentSlideIndex === state.form.items.length - 1) {
-            actions.playRoadTo51()
+            if (state.roadTo51 > 0) {
+              actions.playRoadTo51()
+            } else {
+              actions.showThanks()
+            }
           } else {
             actions.nextSlide()
           }
@@ -78,18 +89,22 @@ export default {
     },
     playRoadTo51(state, actions) {
       actions.setStep('RESET')
-      pause(1)
+      pause(0)
         .then(() => actions.setStep('ROAD_TO_51_START'))
-        .then(() => pause(1))
+        .then(() => pause(0.5))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_LABEL'))
-        .then(() => pause(1))
+        .then(() => pause(0.5))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_TARGET'))
-        .then(() => pause(4))
+        .then(() => pause(2))
         .then(() => actions.setStep('ROAD_TO_51_SHOW_ACTUAL'))
-        .then(() => pause(9))
+        .then(() => pause(8))
         .then(() => {
           if (state.roadTo51 >= 51) {
             fire()
+          } else {
+            actions.setStep('RESET')
+            pause(1)
+              .then(actions.showThanks)
           }
         })
     }
